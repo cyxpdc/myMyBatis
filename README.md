@@ -2,11 +2,13 @@
 
 
 
-##1.0版本
+1.0版本
 
 
 
-###使用者
+
+
+使用者
 
 1.编写TestMapper接口和方法和TestMapperXml类，实现xml文件的功能；使用Test作为实体类
 
@@ -14,7 +16,9 @@
 
 
 
-###开发者
+
+
+开发者
 
 MySqlSession：组合进了配置类和操作sql类，起一个承上启下的作用。selectOne方法将JDBC操作委托给Executor，getMapper生成TestMapper的代理MapperProxy
 
