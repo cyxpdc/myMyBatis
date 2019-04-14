@@ -1,4 +1,4 @@
-package com.pdc.mybatis.handler;
+package com.pdc.mybatis.JDBChandler;
 
 import com.pdc.mybatis.config.MapperData;
 import com.pdc.mybatis.config.MyConfiguration;
@@ -9,7 +9,6 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
 
 /**
  * author PDC
@@ -22,27 +21,27 @@ public class ResultSetHandler {
     }
 
     public <E> E handler(PreparedStatement pstmt, MapperData mapperData) throws Exception {
-        //实体类对象
+        //创建实体类对象
         Object resultObj = new DefaultObjectFactory().create(mapperData.getType());
         ResultSet rs = pstmt.getResultSet();//从数据库获取值
         //填充resultObj
         if(rs.next()){//todo 假设目前只有一行记录
             int i = 0;
+            //给所有字段设置值
             for(Field field : resultObj.getClass().getDeclaredFields()){
                 setValue(resultObj,field,rs,i);
             }
         }
         return null;
     }
-    //要拿到实体类，再拿到set方法，再拿到要set的属性
+    //调用set方法设置值
     private void setValue(Object resultObj,Field field,ResultSet rs,int i) throws Exception{
-        //调用set方法
         Method setMethod = resultObj.getClass().getMethod("set" + upperCapital(field.getName()),field.getType());
         setMethod.invoke(resultObj,getResult(field,rs));
     }
-
+    //根据字段类型去获取ResultSet中相应的值
     private Object getResult(Field field,ResultSet rs) throws SQLException{
-        //todo type handlers
+        //todo typeHandlers
         Class<?> type = field.getType();
         if(Integer.class == type){
             return rs.getInt(field.getName());

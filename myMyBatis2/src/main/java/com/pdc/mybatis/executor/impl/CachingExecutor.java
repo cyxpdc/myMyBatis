@@ -1,38 +1,32 @@
-package com.gupaoedu.mybatis.gp.executor;
+package com.pdc.mybatis.executor.impl;
 
-import com.gupaoedu.mybatis.gp.config.GpConfiguration;
-import com.gupaoedu.mybatis.gp.config.MapperRegistory;
-import com.gupaoedu.mybatis.gp.statement.StatementHandler;
+import com.pdc.mybatis.JDBChandler.StatementHandler;
+import com.pdc.mybatis.config.MapperData;
+import com.pdc.mybatis.config.MyConfiguration;
+import com.pdc.mybatis.executor.MyExecutor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CachingExecutor implements Executor {
-    private GpConfiguration configuration;
-
-    private SimpleExecutor delegate;
+public class CachingExecutor implements MyExecutor {
+    private MyConfiguration configuration;
+    //装饰器模式实现缓存
+    private SimpleExecutor delegate = new SimpleExecutor(configuration);
 
     private Map<String,Object> localCache = new HashMap();
 
-    public CachingExecutor(SimpleExecutor delegate) {
-        this.delegate = delegate;
-    }
-
-    public CachingExecutor(GpConfiguration configuration) {
+    public CachingExecutor(MyConfiguration configuration) {
         this.configuration = configuration;
     }
 
-    public <E> E query(MapperRegistory.MapperData mapperData, Object parameter)
-            throws Exception {
-        //初始化StatementHandler --> ParameterHandler --> ResultSetHandler
-        StatementHandler handler = new StatementHandler(configuration);
+    public <T> T query(MapperData mapperData, Object parameter)  {
         Object result = localCache.get(mapperData.getSql());
-        if( null != result){
+        if(null!= result){
             System.out.println("缓存命中");
-            return (E)result;
+            return (T)result;
         }
-        result =  (E) delegate.query(mapperData,parameter);
+        result =  (T) delegate.query(mapperData,parameter);
         localCache.put(mapperData.getSql(),result);
-        return (E)result;
+        return (T)result;
     }
 }

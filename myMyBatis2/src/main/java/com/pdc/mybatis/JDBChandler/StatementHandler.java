@@ -1,7 +1,6 @@
-package com.pdc.mybatis.handler;
+package com.pdc.mybatis.JDBChandler;
 
 import com.pdc.mybatis.config.MapperData;
-import com.pdc.mybatis.config.MapperRegistory;
 import com.pdc.mybatis.config.MyConfiguration;
 
 import java.sql.*;
