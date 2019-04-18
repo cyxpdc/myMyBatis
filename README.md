@@ -2,7 +2,7 @@
 
 
 
-> 1.0版本
+## 1.0版本
 
 
 
@@ -46,9 +46,7 @@ MyExecutor、SimpleExecutor：SimpleExecutor实现了MyExecutor接口，查询�
 
 
 
-
-
-> 2.0版本：
+## 2.0版本：
 
 > 1.0问题：
 
@@ -94,3 +92,27 @@ MapperProxy：将配置和执行串联在一起运行的地方
 > StatementHandler负责从数据库取数据，取到数据后，将封装MapperData的任务交给ResultSetHandler；
 >
 > ResultSetHandler**通过反射调用set方法给其字段设置值**，即将MapperRegistory中map的键(sql)查询出来的数据封装Test对象
+
+
+
+## 3.0版本：用装饰器模式实现缓存
+
+### 一级缓存
+
+存在于sqlSession里面，一个sqlsession有两条相同的sql语句时，命中缓存；减少对数据库的压力
+
+### 二级缓存
+
+基于nameSpace，即多个SqlSession的同一个语句可以缓存在同一个地方，一个请求开启多个sqlsession，用相同的sql时，命中缓存
+
+###相关类
+
+ExecutorFactory：用来生成Executor，如SimpleExecutor或CachingExecutor，简单工厂
+
+CachingExecutor：一级缓存，使用了装饰器模式
+
+Executor和handler去除了没必要的Configuration，由sqlSession来管理即可，真正起到承上启下的作用
+
+> 流程
+>
+> sqlSession先用CachingExecutor查询是否有相关的查询，如果没有，再去跑SimpleExecutor
