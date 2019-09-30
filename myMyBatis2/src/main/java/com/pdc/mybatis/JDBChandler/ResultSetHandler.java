@@ -11,14 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * 查询结果的处理
  * author PDC
  */
 public class ResultSetHandler {
-    private final MyConfiguration configuration;
-
-    public ResultSetHandler(MyConfiguration configuration) {
-        this.configuration = configuration;
-    }
 
     public <E> E handler(PreparedStatement pstmt, MapperData mapperData) throws Exception {
         //创建实体类对象
@@ -32,17 +28,19 @@ public class ResultSetHandler {
                 setValue(resultObj,field,rs,i);
             }
         }
-        return null;
+        return (E) resultObj;
     }
     //调用set方法设置值
     private void setValue(Object resultObj,Field field,ResultSet rs,int i) throws Exception{
+        System.out.println("fieldType:"+field.getType());
         Method setMethod = resultObj.getClass().getMethod("set" + upperCapital(field.getName()),field.getType());
         setMethod.invoke(resultObj,getResult(field,rs));
     }
-    //根据字段类型去获取ResultSet中相应的值
+    //根据字段类型去获取ResultSet中相应的值，填充此字段
     private Object getResult(Field field,ResultSet rs) throws SQLException{
         //todo typeHandlers
         Class<?> type = field.getType();
+        System.out.println("fieldName:"+field.getName());
         if(Integer.class == type){
             return rs.getInt(field.getName());
         }

@@ -4,7 +4,7 @@ import com.pdc.mybatis.config.MapperData;
 import com.pdc.mybatis.config.MapperRegistory;
 
 /**
- * author PDC
+ * @author PDC
  */
 public class SimpleMapperRegistory extends MapperRegistory {
     /**

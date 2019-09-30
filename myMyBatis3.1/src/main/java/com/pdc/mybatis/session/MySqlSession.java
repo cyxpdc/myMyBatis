@@ -9,14 +9,16 @@ import lombok.Data;
 import java.lang.reflect.Proxy;
 
 /**
+ * @author pdc
  * sql会话，用来对接配置configuration和操作sql的executor
  */
-@Data
+
 public class MySqlSession {
+
     private MyConfiguration configuration;
     private MyExecutor executor;
 
-    public MySqlSession(MyConfiguration configuration,MyExecutor executor) {
+    public MySqlSession(MyConfiguration configuration, MyExecutor executor) {
         this.configuration = configuration;
         this.executor = executor;
     }
@@ -32,5 +34,9 @@ public class MySqlSession {
 
     public <T> T selectByPrimaryKey(MapperData mapperData, Object parameter){
         return executor.query(mapperData,parameter);
+    }
+
+    public MyConfiguration getConfiguration() {
+        return configuration;
     }
 }

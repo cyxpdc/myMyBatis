@@ -6,7 +6,8 @@ import com.pdc.mybatis.executor.MyExecutor;
 import com.pdc.mybatis.JDBChandler.StatementHandler;
 
 /**
- *  负责执行
+ * @author pdc
+ * 负责执行
  */
 public class SimpleExecutor implements MyExecutor{
     /*private MyConfiguration configuration;

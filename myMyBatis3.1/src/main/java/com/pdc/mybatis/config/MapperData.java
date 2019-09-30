@@ -2,8 +2,9 @@ package com.pdc.mybatis.config;
 
 import lombok.Data;
 
-/*
- * author PDC
+/**
+ * @author PDC
+ * sql和类型的映射
  */
 @Data
 public class MapperData<T> {

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Test {
-    private Integer Id;
+    private Integer id;
     private Integer nums;
     private String name;
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 用来让使用者编写的mapper接口找到其配置
- * author PDC
+ * @author PDC
  */
 @Data
 public class MyConfiguration {

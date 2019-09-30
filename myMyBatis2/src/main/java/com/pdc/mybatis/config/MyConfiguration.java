@@ -9,17 +9,12 @@ import lombok.Data;
 @Data
 public class MyConfiguration {
     /**
-     * mapper接口的位置
-     */
-    private String scanPath;
-    /**
      * 接口方法：对应的sql
      */
-    private MapperRegistory mapperRegistory = new MapperRegistory();
+    private MapperRegistory mapperRegistory;
 
-    public void build(){
-        if(null == scanPath || scanPath.length() < 1){
-            throw new RuntimeException("scan path is required");
-        }
+    public void build(MapperRegistory mapperRegistory){
+        this.mapperRegistory = mapperRegistory;
+        mapperRegistory.put();
     }
 }

@@ -9,11 +9,9 @@ import java.lang.reflect.Method;
 public class MapperProxy<T> implements InvocationHandler {
 
     private final MySqlSession sqlSession;
-    private final Class<T> mapperInterface;
 
     public MapperProxy(MySqlSession sqlSession,Class<T> clazz) {
         this.sqlSession = sqlSession;
-        this.mapperInterface = clazz;
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

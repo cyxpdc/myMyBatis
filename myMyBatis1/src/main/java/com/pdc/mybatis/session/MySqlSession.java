@@ -1,6 +1,5 @@
 package com.pdc.mybatis.session;
 
-import com.pdc.mybatis.config.MyConfiguration;
 import com.pdc.mybatis.executor.MyExecutor;
 import com.pdc.mybatis.executor.impl.SimpleExecutor;
 import com.pdc.mybatis.mapper.MapperProxy;
@@ -13,7 +12,6 @@ import java.lang.reflect.Proxy;
  */
 @Data
 public class MySqlSession {
-    private MyConfiguration configuration;
     private MyExecutor executor = new SimpleExecutor();
 
     public <T> T selectOne(String statement,Object parameter){

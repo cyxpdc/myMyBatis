@@ -8,6 +8,9 @@ import com.pdc.mybatis.executor.MyExecutor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author pdc
+ */
 public class CachingExecutor implements MyExecutor {
     private SimpleExecutor delegate;
     //装饰器模式实现缓存

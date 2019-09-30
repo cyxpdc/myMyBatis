@@ -1,5 +1,5 @@
 package com.pdc.mybatis.test;
 
 public interface TestMapper {
-    Test selectByPrimaryKey(Integer userId);
+    Test selectByPrimaryKey(int id);
 }

@@ -1,33 +1,27 @@
-package com.gupaoedu.mybatis.gp.executor;
+package com.pdc.mybatis.executor;
 
-import com.gupaoedu.mybatis.gp.config.GpConfiguration;
+import com.pdc.mybatis.config.MyConfiguration;
+import com.pdc.mybatis.executor.impl.CachingExecutor;
+import com.pdc.mybatis.executor.impl.SimpleExecutor;
 
 /**
- * Created by James on 2017-07-01.
- * From 咕泡学院出品
- * 老师咨询 QQ 2904270631
+ * @author pdc
  */
 public class ExecutorFactory {
 
     private static final String SIMPLE = "SIMPLE";
     private static final String CACHING = "CACHING";
 
-
-    public static Executor DEFAULT(GpConfiguration configuration) {
-        return get(SIMPLE, configuration);
+    public static MyExecutor get(){
+        return get("SIMPLE");
     }
 
-    public static Executor get(String key, GpConfiguration configuration) {
+    public static MyExecutor get(String key) {
         if (SIMPLE.equalsIgnoreCase(key)) {
-            return new SimpleExecutor(configuration);
+            return new SimpleExecutor();
+        }else if (CACHING.equalsIgnoreCase(key)) {
+            return new CachingExecutor(new SimpleExecutor());
         }
-        if (CACHING.equalsIgnoreCase(key)) {
-            return new CachingExecutor(new SimpleExecutor(configuration));
-        }
-        throw new RuntimeException("no executor found");
-    }
-
-    public enum ExecutorType {
-        SIMPLE,CACHING
+        throw new RuntimeException("No this Executor");
     }
 }

@@ -9,20 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CachingExecutor implements MyExecutor {
-    private MyConfiguration configuration;
+    private SimpleExecutor delegate;
     //装饰器模式实现缓存
-    private SimpleExecutor delegate = new SimpleExecutor(configuration);
-
+    //sql语句:结果实体
     private Map<String,Object> localCache = new HashMap();
 
-    public CachingExecutor(MyConfiguration configuration) {
-        this.configuration = configuration;
+    public CachingExecutor(SimpleExecutor delegate) {
+        this.delegate = delegate;
     }
 
     public <T> T query(MapperData mapperData, Object parameter)  {
         Object result = localCache.get(mapperData.getSql());
         if(null!= result){
-            System.out.println("缓存命中");
+            System.out.println("缓存命中,几率很小，因为缓存不是全局的，是每个请求一个");
             return (T)result;
         }
         result =  (T) delegate.query(mapperData,parameter);

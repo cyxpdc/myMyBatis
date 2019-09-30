@@ -10,7 +10,7 @@
 
 ​										使用者
 
-1.编写TestMapper接口和方法和TestMapperXml类，实现xml文件的功能；使用Test作为实体类
+1.编写TestMapper接口，实现xml文件的功能；使用Test作为实体类
 
 2.使用Bootstrap类运行测试
 
