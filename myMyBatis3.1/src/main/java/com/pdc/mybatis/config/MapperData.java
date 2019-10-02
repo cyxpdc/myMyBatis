@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author PDC
- * sql和类型的映射
+ * sql和实体类型的映射
  */
 @Data
 public class MapperData<T> {

@@ -9,9 +9,9 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
-/*
+/**
  * 数据库操作和结果处理的分发
- * author PDC
+ * @author PDC
  */
 public class StatementHandler {
     /*private final MyConfiguration configuration;

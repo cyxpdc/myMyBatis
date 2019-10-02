@@ -32,6 +32,13 @@ public class MySqlSession {
                 new MapperProxy(this));//代理类
     }
 
+    /**
+     * 由MapperProxy的invoke方法里调用
+     * @param mapperData
+     * @param parameter
+     * @param <T>
+     * @return
+     */
     public <T> T selectByPrimaryKey(MapperData mapperData, Object parameter){
         return executor.query(mapperData,parameter);
     }

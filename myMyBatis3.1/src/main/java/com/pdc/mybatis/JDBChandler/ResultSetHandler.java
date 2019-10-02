@@ -12,26 +12,26 @@ import java.sql.SQLException;
 
 /**
  * 查询结果的处理
- * author PDC
+ * @author PDC
  */
 public class ResultSetHandler {
 
     public <E> E handler(PreparedStatement pstmt, MapperData mapperData) throws Exception {
-        //创建实体类对象
+        //创建实体类对象（create方法本质是通过构造方法来创建的）
         Object resultObj = new DefaultObjectFactory().create(mapperData.getType());
         ResultSet rs = pstmt.getResultSet();//从数据库获取值
         //填充resultObj
-        if(rs.next()){//todo 假设目前只有一行记录
-            int i = 0;
+        if(rs.next()){
+            int i = 0;//todo 假设目前只有一行记录
             //给所有字段设置值
             for(Field field : resultObj.getClass().getDeclaredFields()){
-                setValue(resultObj,field,rs,i);
+                setValue(resultObj,field,rs);
             }
         }
         return (E) resultObj;
     }
     //调用set方法设置值
-    private void setValue(Object resultObj,Field field,ResultSet rs,int i) throws Exception{
+    private void setValue(Object resultObj,Field field,ResultSet rs) throws Exception{
         System.out.println("fieldType:"+field.getType());
         Method setMethod = resultObj.getClass().getMethod("set" + upperCapital(field.getName()),field.getType());
         setMethod.invoke(resultObj,getResult(field,rs));

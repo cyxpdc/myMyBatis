@@ -19,7 +19,9 @@ public class MapperProxy<T> implements InvocationHandler {
         //根据要调用的方法的全限定名从MapperRegistory的map中取出MapperData
         try {
             int seperate = method.getDeclaringClass().getName().lastIndexOf(".");
+            //得到方法对应的mapper，此处为TestMapper
             String mapper = method.getDeclaringClass().getName().substring(seperate + 1);
+            //得到方法对应的映射结构，可以从此结构得到sql和实体类
             MapperData mapperData =
                     sqlSession.getConfiguration().getMapperRegistory().get(mapper + "." + method.getName());
             if(null != mapperData){
